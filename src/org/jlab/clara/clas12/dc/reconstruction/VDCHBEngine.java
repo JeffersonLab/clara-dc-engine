@@ -88,6 +88,7 @@ public class VDCHBEngine extends ClasServiceEngine {
 
     @Override
     public Object processDataEvent(DataEvent event) {
+//        event.show();
         // init SNR
         Clas12NoiseResult results = new Clas12NoiseResult();
         Clas12NoiseAnalysis noiseAnalysis = new Clas12NoiseAnalysis();
@@ -174,7 +175,7 @@ public class VDCHBEngine extends ClasServiceEngine {
             }
         }
 
-        CrossList crosslist = crossLister.candCrossLists(crosses, false);
+        CrossList crosslist = crossLister.candCrossLists(crosses);
 
         if (crosslist.size() == 0) {
 
