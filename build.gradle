@@ -111,7 +111,7 @@ def deploySpec = copySpec {
         from jar.archivePath
     }
 
-    from ('scripts/unix') {
+    from ('scripts') {
         into 'bin'
         exclude 'etc'
         fileMode 0755

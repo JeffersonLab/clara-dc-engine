@@ -7,53 +7,46 @@ services.
 ### Clara YAML configuration support
 
 ```
----
 io-services:
   reader:
-    class: org.jlab.clas12.convertors.CustomReader
-    name: CustomReader
+    class: org.jlab.clas.std.services.convertors.HipoToHipoReader
+    name: HipoToHipoReader
   writer:
-    class: org.jlab.clas12.convertors.CustomWriter
-    name: CustomWriter
-    lang: cpp
-
+    class: org.jlab.clas.std.services.convertors.HipoToHipoWriter
+    name: HipoToHipoWriter
 services:
-  - class: org.jlab.clas12.services.ECReconstruction
-    name: ECReconstruction
-  - class: org.jlab.clas12.services.SeedFinder
-    name: SeedFinder
-  - class: org.jlab.clas12.services.HeaderFilter
-    name: HeaderFilter
-    lang: cpp
-  - class: org.jlab.clas12.services.FTOFReconstruction
-    name: FTOFReconstruction
+  data-processing:
+    chain:
+     - class: org.jlab.clara.clas12.dc.reconstruction.VDCHBEngine
+       name: DCHB
+#     - class: org.jlab.service.dc.DCTBEngine
+#       name: DCTB
+  monitoring:
+    chain:
+     - class: org.jlab.clara.clas12.dc.monitor.DcMonitorEngine
+       name: DCMON
 
 mime-types:
-  - binary/data-evio
   - binary/data-hipo
 
 configuration:
   global:
     magnet:
-      torus: 10.75
-      solenoid: 0.5
+      torus: -1
+      solenoid: 1
     ccdb:
-      run: 10
+      run: 101
       variation: custom
-    kalman: true
+    runtype: mc
+    runmode: calibration
 
   io-services:
-    reader:
-      block_size: 10000
     writer:
       compression: 2
 
   services:
-    ECReconstruction:
+    DCMON:
       log: true
-      layers:
-        - inner
-        - outer
-    HeaderFilter:
-      max_hits: 29
+      vvar: 1371
+      kalman: true
 ```
